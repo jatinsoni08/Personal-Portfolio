@@ -16,6 +16,237 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Back to Top Button
     initBackToTop();
+
+    //typing animation
+    const typingText = document.querySelector('.typing-text');
+    const words = ["Jatin Soni", "Cybersecurity Enthusiast", "Web Developer" , "Problem Solver"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+        const currentWord = words[wordIndex];
+    
+        if (isDeleting) {
+            typingText.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typingText.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+        }
+    
+        if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true;
+            setTimeout(type, 1500);
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(type, 500);
+        } else {
+            setTimeout(type, isDeleting ? 50 : 100);
+        }
+    }
+    
+    type();
+    
+    // Scroll Progress
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+
+    // Lightbox Gallery
+    const lightbox = document.querySelector('.lightbox');
+    const lightboxImage = document.querySelector('.lightbox-image');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+    const projectImages = document.querySelectorAll('.project-image');
+
+    let currentImageIndex = 0;
+
+    projectImages.forEach((image, index) => {
+        image.addEventListener('click', () => {
+            currentImageIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightboxClose.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+
+    lightboxPrev.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex - 1 + projectImages.length) % projectImages.length;
+        updateLightboxImage();
+    });
+
+    lightboxNext.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % projectImages.length;
+        updateLightboxImage();
+    });
+
+    function updateLightboxImage() {
+        const image = projectImages[currentImageIndex];
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+    }
+
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+        }
+    });
+
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+            } else if (e.key === 'ArrowLeft') {
+                currentImageIndex = (currentImageIndex - 1 + projectImages.length) % projectImages.length;
+                updateLightboxImage();
+            } else if (e.key === 'ArrowRight') {
+                currentImageIndex = (currentImageIndex + 1) % projectImages.length;
+                updateLightboxImage();
+            }
+        }
+    });
+
+    // Contact Form Validation and Submission
+    const contactForm = document.getElementById('contactForm');
+    const message = document.createElement('div');
+    message.className = 'message';
+    document.body.appendChild(message);
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Basic form validation
+        const name = contactForm.querySelector('#name').value.trim();
+        const email = contactForm.querySelector('#email').value.trim();
+        const messageText = contactForm.querySelector('#message').value.trim();
+        
+        if (!name || !email || !messageText) {
+            showMessage('Please fill in all fields', 'error');
+            return;
+        }
+        
+        if (!isValidEmail(email)) {
+            showMessage('Please enter a valid email address', 'error');
+            return;
+        }
+        
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                showMessage('Message sent successfully!', 'success');
+                contactForm.reset();
+            } else {
+                showMessage('Error sending message. Please try again.', 'error');
+            }
+        } catch (error) {
+            showMessage('Error sending message. Please try again.', 'error');
+        }
+    });
+
+    function showMessage(text, type) {
+        message.textContent = text;
+        message.className = `message ${type}`;
+        message.classList.add('show');
+        
+        setTimeout(() => {
+            message.classList.remove('show');
+        }, 3000);
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // Project Details Modal Handling
+    function initProjectModals() {
+        const modals = {
+            'moodify': document.getElementById('moodifyModal'),
+            'expense': document.getElementById('expenseModal'),
+            'quartz': document.getElementById('quartzModal')
+        };
+
+        // Add click handlers to all View Details buttons
+        document.querySelectorAll('.project-link').forEach(button => {
+            if (button.textContent.trim() === 'View Details') {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const projectCard = button.closest('.project-card');
+                    const projectImage = projectCard.querySelector('.project-image');
+                    const projectId = projectImage.alt.toLowerCase().split(' ')[0];
+                    
+                    // Show the corresponding modal
+                    const modal = modals[projectId];
+                    if (modal) {
+                        showModal(modal);
+                    }
+                });
+            }
+        });
+
+        // Add close handlers to all modals
+        Object.values(modals).forEach(modal => {
+            const closeBtn = modal.querySelector('.modal-close');
+            
+            // Close button click
+            closeBtn.addEventListener('click', () => {
+                hideModal(modal);
+            });
+
+            // Click outside modal
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal(modal);
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const openModal = document.querySelector('.project-modal.show');
+                if (openModal) {
+                    hideModal(openModal);
+                }
+            }
+        });
+    }
+
+    function showModal(modal) {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal(modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Initialize modals when DOM is loaded
+    initProjectModals();
+
+    // Initialize skills animation
+    initSkillsAnimation();
 });
 
 // Mobile Navigation Implementation
@@ -140,6 +371,11 @@ function initFormValidation() {
             // Show success message
             showMessage('Message sent successfully!', 'success');
             form.reset();
+
+            // Remove valid styling after reset
+            inputs.forEach(input => {
+                input.classList.remove('valid');
+            });
         }
     });
 
@@ -197,24 +433,9 @@ function showError(input, message) {
     input.parentElement.appendChild(errorDiv);
 }
 
-function showMessage(message, type) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${type}`;
-    messageDiv.textContent = message;
-    
-    document.body.appendChild(messageDiv);
-    
-    setTimeout(() => {
-        messageDiv.classList.add('show');
-    }, 100);
+// Initialize the form validation when the DOM is ready
+document.addEventListener('DOMContentLoaded', initFormValidation);
 
-    setTimeout(() => {
-        messageDiv.classList.remove('show');
-        setTimeout(() => {
-            messageDiv.remove();
-        }, 300);
-    }, 3000);
-}
 
 // Back to Top Button Implementation
 function initBackToTop() {
@@ -239,53 +460,66 @@ function initBackToTop() {
     });
 }
 
-// Typing Animation
-function initTypingAnimation() {
-    const texts = ["Jatin Soni", "Full Stack Developer"];
-    const typingText = document.querySelector('.typing-text');
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let isWaiting = false;
+// Skills Animation
+function initSkillsAnimation() {
+    const skillsSection = document.querySelector('.skills');
+    const skillItems = document.querySelectorAll('.skill-item');
+    let animated = false;
 
-    function type() {
-        const currentText = texts[textIndex];
-        
-        if (isDeleting) {
-            // Remove characters
-            typingText.textContent = currentText.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            // Add characters
-            typingText.textContent = currentText.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        // Typing speed
-        let typeSpeed = isDeleting ? 100 : 200;
-
-        // If word is complete
-        if (!isDeleting && charIndex === currentText.length) {
-            // Wait before starting to delete
-            typeSpeed = 1500;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            // Move to next word
-            textIndex = (textIndex + 1) % texts.length;
-            // Wait before starting to type
-            typeSpeed = 500;
-        }
-
-        setTimeout(type, typeSpeed);
+    function setProgress(circle, percent) {
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const offset = circumference - (percent / 100) * circumference;
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = offset;
     }
 
-    // Start the typing animation
-    setTimeout(type, 1000);
-}
+    function animateSkills() {
+        const sectionPos = skillsSection.getBoundingClientRect().top;
+        const screenPos = window.innerHeight / 1.3;
 
-// Add this to your existing DOMContentLoaded event listener
-document.addEventListener('DOMContentLoaded', () => {
-    // Your existing initialization code
-    initTypingAnimation();
-});
+        if (sectionPos < screenPos && !animated) {
+            animated = true;
+            skillItems.forEach(item => {
+                const circle = item.querySelector('.progress-ring-circle');
+                const percent = parseInt(item.dataset.skill);
+                
+                // Add gradient to circle
+                circle.innerHTML = `
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#ff00ff" />
+                            <stop offset="100%" stop-color="#00ffff" />
+                        </linearGradient>
+                    </defs>
+                `;
+                circle.style.stroke = 'url(#gradient)';
+                
+                // Animate progress
+                setTimeout(() => {
+                    setProgress(circle, percent);
+                }, 100);
+            });
+        }
+    }
+
+    // Initial check
+    animateSkills();
+
+    // Animate on scroll
+    window.addEventListener('scroll', animateSkills);
+
+    // Add hover effects
+    skillItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const circle = item.querySelector('.progress-ring-circle');
+            circle.style.transition = 'all 0.3s ease';
+            circle.style.transform = 'scale(1.1)';
+        });
+
+        item.addEventListener('mouseleave', () => {
+            const circle = item.querySelector('.progress-ring-circle');
+            circle.style.transform = 'scale(1)';
+        });
+    });
+}

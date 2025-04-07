@@ -1,154 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Developer Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <div class="nav-container">
-            <a href="#" class="logo">Portfolio</a>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </nav>
+      <div class="nav-container">
+        <a href="#" class="logo">Portfolio</a>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+        <nav class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
     </header>
-    
+
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Welcome to My Portfolio</h1>
-            <div class="typing-container">
-                <p>I'm <span class="typing-text"></span></p>
-            </div>
-            
-            <div class="social-links">
-                <a href="https://github.com/jatinsoni08" class="social-link"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/jatinsoni08/" class="social-link"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            </div>
-            
-            <a href="JATIN RESUME.pdf" class="submit-btn">
-                <i class="fas fa-download"></i> Download Resume
-            </a>
+      <div class="hero-content">
+        <h1>Welcome to My Portfolio</h1>
+        <div class="typing-container">
+          <p>I'm <span class="typing-text"></span></p>
         </div>
+        <div class="social-links">
+          <a
+            href="https://github.com/jatinsoni08"
+            target="_blank"
+            class="social-link"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jatinsoni08/"
+            target="_blank"
+            class="social-link"
+          >
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+        <div class="hero-buttons">
+          <a href="JATIN RESUME.pdf" class="cta-button">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+        </div>
+      </div>
     </section>
 
     <section class="about" id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p>
-                Hi, I'm a passionate developer with a strong interest in 
-                <span style="color: #ff00ff;">Cybersecurity</span> and emerging technologies. Currently pursuing my 
-                <strong>Bachelor's in Computer Applications (BCA)</strong>, I love solving problems and building innovative solutions.
-            </p>
-            <p>
-                My expertise includes <strong>HTML, CSS, JavaScript</strong>. I have worked on exciting projects like <span style="color: #00ffff;">Moodify</span>, 
-                a personalized music recommendation app, and a <span style="color: #00ffff;">secure Expense Tracker</span>and many more.
-            </p>
-            <p>
-                Passionate about security and performance, I aim to contribute to a safer and more efficient digital world.
-                I'm always eager to learn, collaborate, and take on new challenges.
-            </p>
+      <h2 class="section-title">About Me</h2>
+      <div class="about-container">
+        <div class="about-image">
+          <img
+            src="project-images/profile.jpg"
+            alt="Profile Picture"
+            class="profile-pic"
+          />
         </div>
+        <div class="about-content">
+          <h3>Hello, I'm Jatin Soni</h3>
+          <p class="about-text">
+            I'm a passionate developer and cybersecurity enthusiast currently
+            pursuing my
+            <strong>Bachelor's in Computer Applications (BCA)</strong>. With a
+            strong foundation in
+            <span class="highlight">frontend development</span> and a keen
+            interest in <span class="highlight">cybersecurity</span>, I'm
+            constantly exploring new technologies and security practices to
+            build secure and efficient digital solutions.
+          </p>
+
+          <div class="about-details">
+            <div class="detail-item">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                <h4>Education</h4>
+                <p>Bachelor of Computer Applications (BCA)</p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <i class="fas fa-code"></i>
+              <div>
+                <h4>Specialization</h4>
+                <p>Frontend Development & Cybersecurity</p>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <i class="fas fa-laptop-code"></i>
+              <div>
+                <h4>Experience</h4>
+                <p>2+ years of development experience</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-cta">
+            <a href="#contact" class="cta-button">Let's Connect</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+      <h2 class="section-title">Skills & Expertise</h2>
+      <div class="skills-container">
+    
+        <!-- Frontend Development -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="fas fa-code"></i>
+            <h3>Frontend Development</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">HTML5/CSS3</span>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Bootstrap</span>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Backend Development -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="fas fa-server"></i>
+            <h3>Backend Development</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">PHP</span>
+                <span class="skill-percentage">75%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 75%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">SQL</span>
+                <span class="skill-percentage">70%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 70%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- CMS -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="fab fa-wordpress-simple"></i>
+            <h3>CMS</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">WordPress</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Tools & Technologies -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="fas fa-tools"></i>
+            <h3>Tools & Technologies</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Git & GitHub</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">VS Code</span>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Learning & Exploring -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="fas fa-book-reader"></i>
+            <h3>Learning & Exploring</h3>
+          </div>
+          <div class="skill-items">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Cybersecurity Basics</span>
+                <span class="skill-percentage">40%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 40%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Python</span>
+              <span class="skill-percentage">65%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress" style="width: 65%"></div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
     </section>
     
-     <section class="projects" id="projects">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-grid">
-            <!-- Project 1 -->
-            <a href="https://jatinsoni08.github.io/Moodify---Your-Personalized-Music-Recommender/" target="_blank">
-                <div class="project-card">
-                    <img src="project-images/moodify.png" alt="Project 2">
-                    <div class="project-overlay">
-                        <i class="fas fa-eye eye-icon"></i>
-                        <h3 class="project-title">Moodify---Your-Personalized-Music-Recommender</h3>
-                    </div>
-                </div>
-            </a>
 
-            <!-- Project 2 -->
-            <a href="https://jatinsoni08.github.io/Expense-Tracker/" target="_blank">
-                <div class="project-card">
-                    <img src="project-images/expense-tracker.png" alt="Project 2">
-                    <div class="project-overlay">
-                        <i class="fas fa-eye eye-icon"></i>
-                        <h3 class="project-title">Expense-Tracker</h3>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Project 3 -->
-            <a href="https://jatinsoni08.github.io/Industry-Website/" target="_blank">
-                <div class="project-card">
-                    <img src="project-images/Quartz-Industry .png" alt="Project 3">
-                    <div class="project-overlay">
-                        <i class="fas fa-eye eye-icon"></i>
-                        <h3 class="project-title">Quartz-Industry Website</h3>
-                    </div>
-                </div>
-            </a>
-            <!-- Commenting out extra projects -->
-            <!-- 
-           
-
-            
-            <div class="project-card">
-                <img src="/api/placeholder/600/400" alt="Project 4">
-                <div class="project-overlay">
-                    <i class="fas fa-eye eye-icon"></i>
-                    <h3 class="project-title">Portfolio Website</h3>
-                </div>
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-card-inner">
+            <div class="project-card-front">
+              <img
+                src="project-images/moodify.png"
+                alt="Moodify Project"
+                class="project-image"
+              />
             </div>
-
-
-            <div class="project-card">
-                <img src="/api/placeholder/600/400" alt="Project 5">
-                <div class="project-overlay">
-                    <i class="fas fa-eye eye-icon"></i>
-                    <h3 class="project-title">Weather App</h3>
-                </div>
+            <div class="project-card-back">
+              <h3 class="project-title">Moodify</h3>
+              <p class="project-description">
+                A personalized music recommender system that suggests songs
+                based on your mood and preferences.
+              </p>
+              <div class="project-links">
+                <a href="#" class="project-link">View Details</a>
+              </div>
             </div>
-
-
-            <div class="project-card">
-                <img src="/api/placeholder/600/400" alt="Project 6">
-                <div class="project-overlay">
-                    <i class="fas fa-eye eye-icon"></i>
-                    <h3 class="project-title">Task Manager</h3>
-                </div>
-            </div> 
-        -->
+          </div>
         </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-card-inner">
+            <div class="project-card-front">
+              <img
+                src="project-images/expense-tracker.png"
+                alt="Expense Tracker"
+                class="project-image"
+              />
+            </div>
+            <div class="project-card-back">
+              <h3 class="project-title">Expense Tracker</h3>
+              <p class="project-description">
+                A web application to track and manage your expenses with visual
+                analytics and budget planning.
+              </p>
+              <div class="project-links">
+                <a href="#" class="project-link">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+          <div class="project-card-inner">
+            <div class="project-card-front">
+              <img
+                src="project-images\Quartz-Industry .png"
+                alt="Quartz Industry"
+                class="project-image"
+              />
+            </div>
+            <div class="project-card-back">
+              <h3 class="project-title">Quartz Industry</h3>
+              <p class="project-description">
+                A modern website for a quartz manufacturing company showcasing
+                their products and services.
+              </p>
+              <div class="project-links">
+                <a href="#" class="project-link">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- Lightbox Gallery -->
+    <div class="lightbox">
+      <div class="lightbox-content">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="" class="lightbox-image" />
+        <div class="lightbox-nav">
+          <span class="lightbox-prev">&lt;</span>
+          <span class="lightbox-next">&gt;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
     <section class="contact" id="contact">
-        <h2 class="section-title">Contact Me</h2>
-        <form class="contact-form" action="mailto:jatin.soni8123@gmail.com" method="post" enctype="text/plain">
-            <div class="form-group">
-                <input type="text" name="name" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-                <textarea name="message" placeholder="Your Message" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Send Message</button>
+      <h2 class="section-title">Contact Me</h2>
+      <div class="contact-container">
+        <form
+          id="contactForm"
+          class="contact-form"
+          action="https://formspree.io/f/xpzgwvzj"
+          method="POST"
+        >
+          <div class="form-group">
+            <input type="text" id="name" name="name" required />
+            <label for="name">Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="email" required />
+            <label for="email">Email</label>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" required></textarea>
+            <label for="message">Message</label>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
         </form>
+      </div>
     </section>
-    
-</body>
+
+    <!-- Project Modals -->
+    <!-- Moodify Modal -->
+    <div class="project-modal" id="moodifyModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Moodify - Music Recommender</h2>
+            </div>
+            <div class="modal-body">
+                <img src="project-images/moodify.png" alt="Moodify Project" class="modal-image">
+                <div class="project-info">
+                    <h3>Project Description</h3>
+                    <p class="modal-description">A personalized music recommendation system that suggests songs based on user mood and preferences. The app uses machine learning algorithms to analyze user behavior and create tailored playlists.</p>
+                    <div class="project-details">
+                        <div class="detail">
+                            <h4>Technologies Used</h4>
+                            <ul class="tech-stack">
+                                <li>HTML5, CSS3, JavaScript</li>
+                                <li>Spotify Web API</li>
+                                <li>Machine Learning Algorithms</li>
+                                <li>Node.js Backend</li>
+                            </ul>
+                        </div>
+                        <div class="detail">
+                            <h4>Key Features</h4>
+                            <ul class="features">
+                                <li>Mood-based music recommendations</li>
+                                <li>Personalized playlists</li>
+                                <li>Real-time music player</li>
+                                <li>User preference learning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-links">
+                        <a href="https://jatinsoni08.github.io/Moodify---Your-Personalized-Music-Recommender/" target="_blank" class="live-demo">Live Demo</a>
+                        <a href="https://github.com/jatinsoni08/Moodify---Your-Personalized-Music-Recommender" target="_blank" class="github-link">GitHub Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expense Tracker Modal -->
+    <div class="project-modal" id="expenseModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Expense Tracker</h2>
+            </div>
+            <div class="modal-body">
+                <img src="project-images/expense-tracker.png" alt="Expense Tracker" class="modal-image">
+                <div class="project-info">
+                    <h3>Project Description</h3>
+                    <p class="modal-description">A comprehensive web application for tracking personal finances and managing expenses. Features include budget planning, expense categorization, and visual analytics.</p>
+                    <div class="project-details">
+                        <div class="detail">
+                            <h4>Technologies Used</h4>
+                            <ul class="tech-stack">
+                                <li>HTML5, CSS3, JavaScript</li>
+                                <li>Chart.js for Analytics</li>
+                                <li>Local Storage API</li>
+                                <li>Bootstrap Framework</li>
+                                <li>Responsive Design</li>
+                            </ul>
+                        </div>
+                        <div class="detail">
+                            <h4>Key Features</h4>
+                            <ul class="features">
+                                <li>Expense categorization</li>
+                                <li>Budget planning</li>
+                                <li>Visual expense analytics</li>
+                                <li>Data persistence</li>
+                                <li>Responsive interface</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-links">
+                        <a href="https://jatinsoni08.github.io/Expense-Tracker/" target="_blank" class="live-demo">Live Demo</a>
+                        <a href="https://github.com/jatinsoni08/Expense-Tracker" target="_blank" class="github-link">GitHub Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quartz Industry Modal -->
+    <div class="project-modal" id="quartzModal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title">Quartz Industry Website</h2>
+            </div>
+            <div class="modal-body">
+                <img src="project-images/Quartz-Industry .png" alt="Quartz Industry" class="modal-image">
+                <div class="project-info">
+                    <h3>Project Description</h3>
+                    <p class="modal-description">A modern, responsive website for a quartz manufacturing company showcasing their products, services, and manufacturing processes with an elegant design.</p>
+                    <div class="project-details">
+                        <div class="detail">
+                            <h4>Technologies Used</h4>
+                            <ul class="tech-stack">
+                                <li>HTML5, CSS3, JavaScript</li>
+                                <li>Bootstrap Framework</li>
+                                <li>jQuery Animations</li>
+                                <li>Responsive Design</li>
+                                <li>CSS Grid and Flexbox</li>
+                            </ul>
+                        </div>
+                        <div class="detail">
+                            <h4>Key Features</h4>
+                            <ul class="features">
+                                <li>Product showcase</li>
+                                <li>Service information</li>
+                                <li>Contact form</li>
+                                <li>Responsive layout</li>
+                                <li>Modern UI/UX</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-links">
+                        <a href="https://jatinsoni08.github.io/Industry-Website/" target="_blank" class="live-demo">Live Demo</a>
+                        <a href="https://github.com/jatinsoni08/Industry-Website" target="_blank" class="github-link">GitHub Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
