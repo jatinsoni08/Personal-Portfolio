@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //typing animation
     const typingText = document.querySelector('.typing-text');
     const words = [
-        "a Jatin Soni",
+        "Jatin Soni",
         "a Frontend Developer",
         "a Cybersecurity Enthusiast",
         "a Web Designer",
