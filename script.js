@@ -19,31 +19,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //typing animation
     const typingText = document.querySelector('.typing-text');
-    const words = ["Jatin Soni", "Cybersecurity Enthusiast", "Web Developer" , "Problem Solver"];
+    const words = [
+        "a Jatin Soni",
+        "a Frontend Developer",
+        "a Cybersecurity Enthusiast",
+        "a Web Designer",
+        "a Problem Solver"
+    ];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
+    let isEnd = false;
 
     function type() {
         const currentWord = words[wordIndex];
-    
-        if (isDeleting) {
-            typingText.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typingText.textContent = currentWord.substring(0, charIndex + 1);
+        const currentChar = currentWord.substring(0, charIndex);
+        
+        typingText.textContent = currentChar;
+        
+        if (!isDeleting && charIndex < currentWord.length) {
             charIndex++;
-        }
-    
-        if (!isDeleting && charIndex === currentWord.length) {
-            isDeleting = true;
-            setTimeout(type, 1500);
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            setTimeout(type, 500);
+            setTimeout(type, 100);
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+            setTimeout(type, 50);
         } else {
-            setTimeout(type, isDeleting ? 50 : 100);
+            isDeleting = !isDeleting;
+            if (!isDeleting) {
+                wordIndex = (wordIndex + 1) % words.length;
+            }
+            setTimeout(type, 1000);
         }
     }
     
@@ -193,68 +198,57 @@ projectImages.forEach((image, index) => {
     // Project Details Modal Handling
     function initProjectModals() {
         const modals = {
-            'moodify': document.getElementById('moodifyModal'),
-            'expense': document.getElementById('expenseModal'),
-            'quartz': document.getElementById('quartzModal')
+            'Moodify': document.getElementById('moodifyModal'),
+            'Expense Tracker': document.getElementById('expenseModal'),
+            'Quartz Industry': document.getElementById('quartzModal')
         };
 
-        // Add click handlers to all View Details buttons
+        // Add click handlers for "View Details" buttons
         document.querySelectorAll('.project-link').forEach(button => {
-            if (button.textContent.trim() === 'View Details') {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const projectCard = button.closest('.project-card');
-                    const projectImage = projectCard.querySelector('.project-image');
-                    const projectId = projectImage.alt.toLowerCase().split(' ')[0];
-                    
-                    // Show the corresponding modal
-                    const modal = modals[projectId];
-                    if (modal) {
-                        showModal(modal);
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const projectTitle = button.closest('.project-card-back').querySelector('.project-title').textContent;
+                const modal = modals[projectTitle];
+                if (modal) {
+                    showModal(modal);
+                }
+            });
+        });
+
+        // Add close handlers for each modal
+        Object.values(modals).forEach(modal => {
+            if (modal) {
+                const closeBtn = modal.querySelector('.modal-close');
+                closeBtn.addEventListener('click', () => hideModal(modal));
+
+                // Close modal when clicking outside
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        hideModal(modal);
                     }
                 });
-            }
-        });
 
-        // Add close handlers to all modals
-        Object.values(modals).forEach(modal => {
-            const closeBtn = modal.querySelector('.modal-close');
-            
-            // Close button click
-            closeBtn.addEventListener('click', () => {
-                hideModal(modal);
-            });
-
-            // Click outside modal
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    hideModal(modal);
-                }
-            });
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const openModal = document.querySelector('.project-modal.show');
-                if (openModal) {
-                    hideModal(openModal);
-                }
+                // Close modal with Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.style.display === 'block') {
+                        hideModal(modal);
+                    }
+                });
             }
         });
     }
 
     function showModal(modal) {
-        modal.classList.add('show');
+        modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     }
 
     function hideModal(modal) {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
     }
 
-    // Initialize modals when DOM is loaded
+    // Initialize project modals
     initProjectModals();
 
     // Initialize skills animation
@@ -268,8 +262,7 @@ function initMobileNav() {
     const navLinksItems = document.querySelectorAll('.nav-links a');
 
     // Toggle menu
-    hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
+    hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('active');
     });
@@ -347,7 +340,7 @@ function initScrollAnimation() {
     });
 }
 
-// Project Cards Animation Implementation
+
 // Project Cards Animation Implementation
 function initProjectCards() {
     const projectCards = document.querySelectorAll('.project-card');
@@ -358,6 +351,7 @@ function initProjectCards() {
         card.addEventListener('mouseenter', (e) => {
             if (!isMobile) {
                 const overlay = card.querySelector('.project-overlay');
+                if (!overlay) return;
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -511,16 +505,8 @@ function initBackToTop() {
 // Skills Animation
 function initSkillsAnimation() {
     const skillsSection = document.querySelector('.skills');
-    const skillItems = document.querySelectorAll('.skill-item');
+    const progressBars = document.querySelectorAll('.progress');
     let animated = false;
-
-    function setProgress(circle, percent) {
-        const radius = circle.r.baseVal.value;
-        const circumference = radius * 2 * Math.PI;
-        const offset = circumference - (percent / 100) * circumference;
-        circle.style.strokeDasharray = `${circumference} ${circumference}`;
-        circle.style.strokeDashoffset = offset;
-    }
 
     function animateSkills() {
         const sectionPos = skillsSection.getBoundingClientRect().top;
@@ -528,24 +514,11 @@ function initSkillsAnimation() {
 
         if (sectionPos < screenPos && !animated) {
             animated = true;
-            skillItems.forEach(item => {
-                const circle = item.querySelector('.progress-ring-circle');
-                const percent = parseInt(item.dataset.skill);
-                
-                // Add gradient to circle
-                circle.innerHTML = `
-                    <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#ff00ff" />
-                            <stop offset="100%" stop-color="#00ffff" />
-                        </linearGradient>
-                    </defs>
-                `;
-                circle.style.stroke = 'url(#gradient)';
-                
-                // Animate progress
+            progressBars.forEach(progress => {
+                const width = progress.style.width;
+                progress.style.width = '0';
                 setTimeout(() => {
-                    setProgress(circle, percent);
+                    progress.style.width = width;
                 }, 100);
             });
         }
@@ -556,18 +529,4 @@ function initSkillsAnimation() {
 
     // Animate on scroll
     window.addEventListener('scroll', animateSkills);
-
-    // Add hover effects
-    skillItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            const circle = item.querySelector('.progress-ring-circle');
-            circle.style.transition = 'all 0.3s ease';
-            circle.style.transform = 'scale(1.1)';
-        });
-
-        item.addEventListener('mouseleave', () => {
-            const circle = item.querySelector('.progress-ring-circle');
-            circle.style.transform = 'scale(1)';
-        });
-    });
 }
