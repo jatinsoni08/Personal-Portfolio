@@ -61,22 +61,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Lightbox Gallery
-    const lightbox = document.querySelector('.lightbox');
-    const lightboxImage = document.querySelector('.lightbox-image');
-    const lightboxClose = document.querySelector('.lightbox-close');
-    const lightboxPrev = document.querySelector('.lightbox-prev');
-    const lightboxNext = document.querySelector('.lightbox-next');
-    const projectImages = document.querySelectorAll('.project-image');
+   // Lightbox Gallery
+const lightbox = document.querySelector('.lightbox');
+const lightboxImage = document.querySelector('.lightbox-image');
+const lightboxClose = document.querySelector('.lightbox-close');
+const lightboxPrev = document.querySelector('.lightbox-prev');
+const lightboxNext = document.querySelector('.lightbox-next');
+const projectImages = document.querySelectorAll('.project-image');
 
-    let currentImageIndex = 0;
+let currentImageIndex = 0;
 
-    projectImages.forEach((image, index) => {
-        image.addEventListener('click', () => {
-            currentImageIndex = index;
-            updateLightboxImage();
-            lightbox.classList.add('active');
-        });
+// Check if device is mobile
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+projectImages.forEach((image, index) => {
+    image.addEventListener('click', (e) => {
+        // On mobile devices, don't open the lightbox
+        if (isMobile) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        
+        // On desktop, open the lightbox as normal
+        currentImageIndex = index;
+        updateLightboxImage();
+        lightbox.classList.add('active');
     });
+});
 
     lightboxClose.addEventListener('click', () => {
         lightbox.classList.remove('active');
@@ -336,19 +348,55 @@ function initScrollAnimation() {
 }
 
 // Project Cards Animation Implementation
+// Project Cards Animation Implementation
 function initProjectCards() {
     const projectCards = document.querySelectorAll('.project-card');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     projectCards.forEach(card => {
+        // Add hover effect for desktop
         card.addEventListener('mouseenter', (e) => {
-            const overlay = card.querySelector('.project-overlay');
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            if (!isMobile) {
+                const overlay = card.querySelector('.project-overlay');
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-            overlay.style.transform = `scale(1)`;
-            overlay.style.transformOrigin = `${x}px ${y}px`;
+                overlay.style.transform = `scale(1)`;
+                overlay.style.transformOrigin = `${x}px ${y}px`;
+            }
         });
+
+        // Add click/tap functionality for flipping cards
+        card.addEventListener('click', function(e) {
+            // Don't flip if clicking on View Details button or links
+            if (e.target.classList.contains('project-link') || 
+                e.target.closest('.project-link')) {
+                return;
+            }
+            
+            // Prevent lightbox from opening when clicking on image
+            if (e.target.classList.contains('project-image') || 
+                e.target.closest('.project-image')) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            // Flip the card
+            this.classList.toggle('flipped');
+        });
+    });
+
+    // Modify the lightbox behavior to not open on mobile when clicking project images
+    const projectImages = document.querySelectorAll('.project-image');
+    projectImages.forEach((image) => {
+        image.addEventListener('click', (e) => {
+            if (isMobile) {
+                // On mobile, prevent the default lightbox behavior
+                e.stopPropagation();
+                return false;
+            }
+        }, true); // Use capture phase to intercept event before lightbox handler
     });
 }
 
